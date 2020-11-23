@@ -2,8 +2,9 @@
 var form = document.querySelector('#formulario');
 var btnDiasOcupados = document.querySelector('#btnDiasOcupados');
 
+var cancha1 = ["2020-11-23"];
 var getLocalStorage = localStorage.getItem('cancha1');
-var cancha1 = JSON.parse(getLocalStorage);
+cancha1 = JSON.parse(getLocalStorage);
 
 function operacion(){
 
