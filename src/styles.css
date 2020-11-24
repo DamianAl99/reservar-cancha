@@ -28,3 +28,11 @@ main button{
     width: 100%;
     margin-top: 20px;
 }
+
+@media screen and (min-width: 560px) {
+    main{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+

@@ -18,7 +18,7 @@ form.addEventListener("submit", (e) => {
             if (controlFecha1 === -1) {//si no encontro algo similar entonces que guarde
                 cancha1.push(fecha);
                 localStorage.setItem("cancha1", JSON.stringify(cancha1));
-                alert('Fecha Habilitada');
+                alert('Fecha Habilitada para');
             }else{//si ya hay algo similar en el array de datos
                 alert('Esta fecha ya esta reservada, Busca otra Fecha');
             }
@@ -39,7 +39,7 @@ btnDiasOcupados.addEventListener('click', ()=>{
             <li class='list-group-item'>${element}</li>
         `;
     });
-})
+});
   
 /*   if (localStorage.getItem("cancha1")) {
         getLocalStorage = localStorage.getItem("cancha1");
