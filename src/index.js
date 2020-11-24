@@ -1,50 +1,80 @@
-'use strict'
-var form = document.querySelector('#formulario');
-var btnDiasOcupados = document.querySelector('#btnDiasOcupados');
 
-var cancha1 = ["2020-11-23"]; 
-var getLocalStorage = localStorage.getItem('cancha1');
-cancha1 = JSON.parse(getLocalStorage);
+var form = document.querySelector("#formulario");
+var btnDiasOcupados = document.querySelector("#btnDiasOcupados");
 
-function operacion(){
-
-    form.addEventListener("submit", ()=>{
-        var fecha = document.querySelector('#dFecha').value;
-        var numeroDeCancha = document.querySelector('#cancha').value;
-
-        getLocalStorage = localStorage.getItem('cancha1');
-        cancha1 = JSON.parse(getLocalStorage);
-
-        if(numeroDeCancha == 1){
-            var controlFecha1 = cancha1.indexOf(fecha);//para comprobar si existe o no (-1 es si no existe)
+form.addEventListener("submit", (e) => {
+    e.preventDefault()
+    let fecha = document.querySelector("#dFecha").value;
+    let numeroDeCancha = document.querySelector("#cancha").value;
+    var cancha1=[];
     
-            if(controlFecha1 == -1){//si no encontro algo similar entonces que guarde
-                alert('la cancha esta habilitada y ya se guardo en la base de datos')
+    if (numeroDeCancha == 1) {
+        
+        if (localStorage.getItem("cancha1")) {
+            var getLocalStorage = localStorage.getItem("cancha1");
+            cancha1 = (JSON.parse(getLocalStorage));
+            let controlFecha1 = cancha1.indexOf(fecha); //para comprobar si existe o no (-1 es si no existe)
+
+            if (controlFecha1 === -1) {//si no encontro algo similar entonces que guarde
                 cancha1.push(fecha);
-                localStorage.setItem('cancha1', JSON.stringify(cancha1));
-
-            }else{//si encontro algo
-                alert(`esta cancha esta ocupada el dia ${fecha}`);
+                localStorage.setItem("cancha1", JSON.stringify(cancha1));
+                alert('Fecha Habilitada');
+            }else{//si ya hay algo similar en el array de datos
+                alert('Esta fecha ya esta reservada, Busca otra Fecha');
             }
-    
+        }else{
+            localStorage.setItem("cancha1", JSON.stringify(cancha1));
+            alert('Vuelve a Ingresar la Fecha');
         }
-    });
 
-}
-operacion();
+    }
+})
 
-var imprimir = document.querySelector('.diasOcupados');
-btnDiasOcupados.addEventListener('click', (e)=>{
-    e.preventDefault();
+var imprimir = document.querySelector(".diasOcupados");
+btnDiasOcupados.addEventListener('click', ()=>{
+    let getLocalStorage = localStorage.getItem('cancha1');
+    let cancha1 = JSON.parse(getLocalStorage);
     cancha1.forEach(element => {
         imprimir.innerHTML += `
-        <li class='list-group-item'>${element}</li>
-    `
+            <li class='list-group-item'>${element}</li>
+        `;
     });
+})
+  
+/*   if (localStorage.getItem("cancha1")) {
+        getLocalStorage = localStorage.getItem("cancha1");
+        cancha1 = JSON.parse(getLocalStorage);
+        let controlFecha1 = cancha1.indexOf(fecha); //para comprobar si existe o no (-1 es si no existe)
+
+        if (controlFecha1 === -1) {
+          //si no encontro algo similar entonces que guarde
+          cancha1 = cancha1.push(fecha);
+          localStorage.setItem("cancha1", JSON.stringify(cancha1));
+          alert("la cancha esta habilitada y ya se guardo en la base de datos");
+        } else {
+          //si encontro algo
+          alert(`Esta cancha esta ocupada el dia ${fecha}`);
+        }
+      } else {
+        localStorage.setItem("cancha1", JSON.stringify(fecha));
+        alert("Fue una Prueba vuelve a intentarlo");
+      }
+    }
 });
 
 
-
+let imprimir = document.querySelector(".diasOcupados");
+btnDiasOcupados.addEventListener("click", (e) => {
+  e.preventDefault();
+  let getLocalStorage = localStorage.getItem("cancha1");
+  let cancha1 = JSON.parse(getLocalStorage);
+  console.log(cancha1);
+  cancha1.forEach((element) => {
+    imprimir.innerHTML += `
+        <li class='list-group-item'>${element}</li>
+    `;
+  });
+});
 
 /*function calendario(){
     //let fecha1 = new Date(actual);
